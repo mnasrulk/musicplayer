@@ -146,7 +146,78 @@ class App extends Component {
     return response.data.items;
   };
 
-  
+  setVolume = (volume) => {
+    const { vdoEvent } = this.state;
+    if (!_.isEmpty(vdoEvent)) {
+      vdoEvent.target.setVolume(volume);
+      this.setState({
+        vdoPauseTime: vdoEvent.target.getDuration(),
+      });
+    }
+  };
+
+  pauseVideo = () => {
+    const { vdoEvent } = this.state;
+    if (!_.isEmpty(vdoEvent)) {
+      vdoEvent.target.pauseVideo();
+      this.setState({
+        vdoPauseTime: vdoEvent.target.getDuration(),
+      });
+    }
+  };
+
+  resumeVideo = () => {
+    const { vdoEvent } = this.state;
+    if(!_.isEmpty(vdoEvent)){
+      vdoEvent.target.stopVideo();
+      this.setState({
+        vdoEvent:null,
+      });
+      return 1;
+    }
+    return 0;
+  };
+
+  toggleTheme = () => {
+    if(this.state.theme === "light"){
+      this.setState({theme : "dark"});
+    }else {
+      this.setState({ theme: "light" });
+    }
+  };
+
+  render(){
+    const { inputTerm, videos, selectedVideo, commands, theme } = this.state;
+
+    return(
+      <ThemeProvider theme={theme === "light" ? lightTheme: darkTheme}>
+        <>
+        <GlobalStyle />
+        <main className="container-fluid d-flex h-100 flex-column">
+          <Navbar />
+          <div className="row main-container flex-fill">
+            <div className="col-3 main-instructions-column">
+              <Instructions theme={theme} onToggleTheme={this.toggleTheme} />
+            </div>
+            <div className="col-6 main-player-column">
+              <Player
+                video={selectedVideo}
+                onVideoEvent={(c) =>this.handleVideoEvent(c)}/>
+            </div>
+            <div className="col-3 main-command-column">
+              <Command
+                inputTerm={inputTerm}
+                videos={videos}
+                commands={commands}
+                onInputChange={this.handleInputChange}
+                onCommandSubit={this.handleCommandSubmit}/>
+            </div>
+          </div>
+        </main>
+        </>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default App;
