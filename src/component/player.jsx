@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import VideoDetail from "./VideoDetail";
 import _ from "lodash";
 
-import "./player.css";
+import "./player.scss";
 
 class Player extends Component{
     state = {};
     render(){
         const { video, onVideoEvent } = this.props;
         const {
-            channelId,
             publishedAt,
             title,
             description,
@@ -52,3 +51,5 @@ class Player extends Component{
         );
     }
 }
+
+export default Player;

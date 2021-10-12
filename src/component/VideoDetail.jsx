@@ -11,7 +11,7 @@ class VideoDetail extends Component{
             const firstScriptTag = document.getElementsByTagName("script")[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         } else{
-            this.loadVideo;
+            this.loadVideo();
         }
     };
 
@@ -31,7 +31,7 @@ class VideoDetail extends Component{
 
     onPlayerReady = (event) => {
         event.target.playVideo();
-        this.props.onVideoEvent(Event);
+        this.props.onVideoEvent(event);
     };
 
     render(){
