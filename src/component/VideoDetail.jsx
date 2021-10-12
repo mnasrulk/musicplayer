@@ -44,7 +44,7 @@ class VideoDetail extends Component{
         return(
             <div>
                 <div style={{ display: "none" }}>
-                {<iframe src={videoSrc} allowFullScreen title="Video player"/>}
+                <iframe src={videoSrc} allowFullScreen title="Video player"/>
                 <div id={`youtube-player`}></div>
                 </div>
             </div>
